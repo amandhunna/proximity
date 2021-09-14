@@ -32,22 +32,22 @@ const helper = {
     },
 
     aqiRange: function(aqi) {
-        if(0 <= aqi && aqi <=50) {
+        if(0 <= aqi && aqi <51) {
             return aqiConstants.GOOD;
         }
-        if(51 <= aqi && aqi <=100) {
+        if(51 <= aqi && aqi <101) {
             return aqiConstants.SATISFACTORY;
         }
-        if(101 <= aqi && aqi <=200) {
+        if(101 <= aqi && aqi <201) {
             return aqiConstants.MODERATE;
         }
-        if(201 <= aqi && aqi <=300) {
+        if(201 <= aqi && aqi <301) {
             return aqiConstants.POOR;
         }
-        if(301 <= aqi && aqi <=400) {
+        if(301 <= aqi && aqi <401) {
             return aqiConstants.VERY_POOR;
         }
-        if(401 < aqi && aqi <=500) {
+        if(401 <= aqi && aqi <501) {
             return aqiConstants.SEVERE;
         }
     },

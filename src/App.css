@@ -1,14 +1,124 @@
-table,
-th,
-td {
-  border: 1px solid black;
+* {
+  padding: 0;
+  margin: 0;
 }
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 10px; /* 1.5rem = 15px, 2rem = 20px and so on... */
+  box-sizing: border-box;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 3px;
+  height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 0px white;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #26a0c959;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #26a0c9ad;
+}
+
 .chart {
   width: 100%;
   height: 100%;
 }
 
 main {
+  display: block;
+  width: 100vw;
+  overflow: scroll;
+  height: 90vh;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+header,
+footer {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1vw;
+  font-size: 2vw;
+  font-weight: 600;
+  width: 100vw;
+  height: 5vh;
+}
+
+#cityWiseChart {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  margin: 4rem;
+  padding: 3rem;
+}
+
+#cityWiseTable {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  margin: 4rem;
+  padding: 3rem;
+}
+
+#cityWiseComparison {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  margin: 4rem;
+  padding: 3rem;
+  display: flex;
+}
+#citiesList {
+  flex-basis: 20%;
+}
+#citiesComparisonChart {
+  flex-basis: 80%;
+}
+
+option {
+  font-size: 1vw;
+  padding: 0.7rem;
+  font-weight: 600;
+}
+p {
+  font-size: 0.9vw;
+  font-weight: 600;
+  font-style: italic;
+  margin-top: 1rem;
+}
+
+table {
+  height: 100%;
+  width: 100%;
+}
+
+th {
+  font-size: 1.4vw;
+}
+
+td {
+  font-size: 1vw;
+  font-weight: 600;
+  padding: 1.5rem 1rem 1rem 1rem;
 }
 
 /* 

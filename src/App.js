@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import moment from 'moment';
 import helper from './util/helper';
+import CityWiseChart from './CityWiseChart';
+import CityWiseTable from './CityWiseTable';
+import CityWiseComparison from './CityWiseComparison';
 import './App.css';
 const wsURL = 'ws://city-ws.herokuapp.com';
-
-const rawData = [
+/* const rawData = [
   [{
       "city": "Mumbai",
       "aqi": 1.81924858030655
@@ -63,19 +65,25 @@ const rawData = [
         "aqi": 46.440103982989804
     }]
   
-]
+] */
 
 function App() {
-  const [ chartData, setChartData] = useState({});
   const [ data, setData] = useState([]);
-  const [selectedCities, setSelectedCites] = useState([]);
-
-
 
   useEffect(() => {
-    const aggregateData = rawData.reduce(( aggData, instance) => {
-      instance.forEach(({city, aqi}) => {
-        if(!!aggData[city]) {
+    const socket = new WebSocket(wsURL);
+
+  // Listen for messages
+  socket.addEventListener('message', function (event) {
+   //   console.log('Message from server ', event.data);
+  const rawData = [];
+  const parsedData = JSON.parse(event.data) 
+  rawData.unshift(parsedData);
+  console.log("----------------", rawData)
+  const aggregateData = rawData.reduce(( aggData, instance) => {
+    console.log("--instance-----",instance)
+    instance.forEach(({city, aqi}) => {
+      if(!!aggData[city]) {
           aggData[city].aqi.unshift(aqi);
           aggData[city].aqi.length = 10;
           aggData[city].lastUpdated =  moment().unix();
@@ -89,42 +97,13 @@ function App() {
       return aggData;
     },{})
     setData(aggregateData);
+    });
+
+    return () => { socket.off('message'); }
   }, [])
 
+ 
 
-  const getTableData = (data) => {
-    const tableData = Object
-      .entries(data)
-      .map(([city, {aqi, lastUpdated }]) => {
-      return { aqi: aqi[0], lastUpdated, city }
-    })
-    return tableData;
-  }
-
-  const setChart = () => {
-    setChartData({
-    labels: Object.keys(data),
-    datasets: [{
-                      label: 'Air quality index',
-                      data: Object.values(data).map(item => item.aqi[0]),
-                      backgroundColor: Object.values(data).map(item => helper.getAqiColor(item.aqi[0])),
-                      borderColor: Object.values(data).map(item => helper.getAqiColor(item.aqi[0])),
-                      borderWidth: 1
-                  }]
-           });
-} 
-
-  function onSelectClick(event) {
-    const { options } = event.target;
-    const value = [];
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].selected) {
-        value.push(options[i].value);
-        console.log("-----",value)
-        setSelectedCites(value)
-      }
-    }
-  }
 
   useEffect(() => {
 //    const socket = new WebSocket(wsURL);
@@ -140,50 +119,39 @@ function App() {
     //}
     
   }, [])
-  
-  // chart data
-  useEffect(() => {
-    if(Object.keys(data).length) {
-      setChart();
-    }
-  }, [data]);
  
   return (
     <div className="App">
-      <header className="App-header"></header>
+      <header>Tech Challenge</header>
       <main>
-      <select name="citites" multiple size={10} onChange={onSelectClick}>{
-        Object.keys(data).sort().map(item => (<option value={item}>{item}</option>))
-      }</select>
-
-        <table>
-          <tr>
-            <th>city</th>
-            <th>Current AQI</th>
-            <th>Last updated</th>
-          </tr>
-          {getTableData(data).map(item => {
-            return (<>
-              <tr style={{backgroundColor:helper.getAqiColor(item.aqi)}}>
-                <td>{item.city}</td>
-                <td>{helper.round(item.aqi)}</td>
-                <td>{item.lastUpdated}</td>
-              </tr>
-              </>)
-          })}
-        </table>
-        <section >
-        <Bar
-          className="chart"
-	        data={chartData}
-	        width={2}
-	        height={2}
-	        options={{ maintainAspectRatio: false }}
-        />
-        </section>
+        <CityWiseChart data={data} />
+        <CityWiseTable data={data} />
+        <CityWiseComparison data={data} />
       </main>
+      <footer>Build with React </footer>
     </div>
   );
 }
 
 export default App;
+
+
+/* const setCityChart = () => {
+  setChartData({
+  labels: Object.keys(data),
+  datasets: [{
+                    label: 'Air quality index',
+                    data: Object.values(data).map(item => item.aqi[0]),
+                    backgroundColor: Object.values(data).map(item => helper.getAqiColor(item.aqi[0])),
+                    borderColor: Object.values(data).map(item => helper.getAqiColor(item.aqi[0])),
+                    borderWidth: 1
+                },
+                {
+                  label: 'Air quality index2',
+                  data: Object.values(data).map(item => item.aqi[0]),
+                  backgroundColor: Object.values(data).map(item => helper.getAqiColor(item.aqi[0])),
+                  borderColor: Object.values(data).map(item => helper.getAqiColor(item.aqi[0])),
+                  borderWidth: 1
+              }]
+         });
+} */
