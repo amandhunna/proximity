@@ -11,17 +11,16 @@ function CityWiseComparison({data}) {
       console.log("selectedCities", selectedCities, data)
     setChartData({
     labels: [1,2,3,4,5,6,7,8,9,10],
-    datasets: selectedCities.map((item,index) => {
-        console.log("---",index, item, data[item].aqi)        
+    datasets: selectedCities.map((item) => {        
         return    {
                     label: `${item}`,
                     //barPercentage: 0.5,
                     //barThickness: 6,
                     maxBarThickness: 8,
                     minBarLength: 2,
-                    data: [...data[item].aqi],
-                    backgroundColor: data[item].aqi.map(aqi => helper.getAqiColor(aqi)),
-                    borderColor: data[item].aqi.map(aqi => helper.getAqiColor(aqi)),
+                    data: [...data[item]? data[item]?.aqi: []],
+                    backgroundColor: data[item]?.aqi.map(aqi => helper.getAqiColor(aqi)),
+                    borderColor: data[item]?.aqi.map(aqi => helper.getAqiColor(aqi)),
                     borderWidth: 1,
                 }})
          });
@@ -60,12 +59,6 @@ function CityWiseComparison({data}) {
 	        data={chartData}
 	        width={2}
 	        height={2}
-            //options={{
-            //    scales: {
-            //        x: { display: false}
-            //    }
-            //}}
-	       // options={{ maintainAspectRatio: false }}
         />
         </div>
       </section>
