@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
-// import moment from 'moment';
 import helper from './util/helper';
 
 function CityWiseComparison({data}) {
@@ -8,7 +7,6 @@ function CityWiseComparison({data}) {
   const [ selectedCities, setSelectedCites] = useState([]);
 
   const setCityChart = () => {
-      console.log("selectedCities", selectedCities, data)
     setChartData({
     labels: [1,2,3,4,5,6,7,8,9,10],
     datasets: selectedCities.map((item) => {        

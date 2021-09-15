@@ -121,6 +121,12 @@ td {
   padding: 1.5rem 1rem 1rem 1rem;
 }
 
+#stats {
+  display: flex;
+}
+#stats > * {
+  flex-basis: 50%;
+}
 /* 
 display: fle;
 #55a84f MEDIUM SEA GREEN

@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import helper from './util/helper';
 
+
 function CityWiseTable({data}) {
     const getTableData = (data) => {
         const tableData = Object
@@ -11,6 +12,15 @@ function CityWiseTable({data}) {
         })
         return tableData;
       }
+
+    const time = (timeStamp) => {
+        const difference = moment().unix() - timeStamp;
+        if(difference === 0) {
+            return "Just now"
+        }
+
+        return `${difference} seconds ago`;
+    }
  
     return (
         <section id='cityWiseTable' >
@@ -25,7 +35,7 @@ function CityWiseTable({data}) {
                   <tr style={{backgroundColor:helper.getAqiColor(item.aqi)}}>
                     <td>{item.city}</td>
                     <td>{helper.round(item.aqi)}</td>
-                    <td>{item.lastUpdated}</td>
+                   <td>{time(item.lastUpdated)}</td>
                   </tr>
                   </>)
               })}
