@@ -1,29 +1,4 @@
-const aqiConstants = {
-    GOOD :'GOOD',
-    SATISFACTORY :'SATISFACTORY',
-    MODERATE :'MODERATE',
-    POOR :'POOR',
-    VERY_POOR :'VERY_POOR',
-    SEVERE :'SEVERE',
-}
-
-const aqiCategory = {
-    GOOD: 'Good',
-    SATISFACTORY: 'Satisfactory',
-    MODERATE: 'Moderate',
-    POOR: 'Poor',
-    VERY_POOR: 'Very poor',
-    SEVERE: 'Severe',
-}
-
-const aqiCategoryColor = {
-    GOOD: '#55a84f',
-    SATISFACTORY: '#a3c853',
-    MODERATE: '#fff833',
-    POOR: '#f29c33',
-    VERY_POOR: '#e93f33',
-    SEVERE: '#af2d24',
-}
+import { aqiConstants, aqiCategory, aqiCategoryColor } from './../constant'; 
 
 const helper = {
     round : function(num) {

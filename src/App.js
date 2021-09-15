@@ -4,9 +4,12 @@ import moment from 'moment';
 import CityWiseChart from './CityWiseChart';
 import CityWiseTable from './CityWiseTable';
 import CityWiseComparison from './CityWiseComparison';
+
+import config from './config';
+
 import './App.css';
 
-const wsURL = 'ws://city-ws.herokuapp.com';
+const  { wsURL } = config;
 
 function App() {
   const [ data, setData] = useState({});

@@ -46,7 +46,7 @@ function CityWiseComparison({data}) {
   return (
     <section id="cityWiseComparison">
         <div id='citiesList'>
-            <select name="cities" multiple size={10} onChange={onSelectClick}>{
+            <select name="cities" multiple size={12} onChange={onSelectClick}>{
               Object.keys(data).sort().map(item => (<option value={item}>{item}</option>))
             }</select>
             <p>use Ctrl + click or shift + click</p>
